@@ -24,6 +24,11 @@ def webhook():
     else:
         return "Failed to send data to Google Apps Script"
 
+@app.route('/payments/success', methods=['GET'])
+def payment_success():
+    # Add your logic for handling successful payments here
+    return jsonify({"message": "Payment Successful!"})
+    
 if __name__ == '__main__':
     app.run(debug=True)
 
