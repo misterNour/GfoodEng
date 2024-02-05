@@ -591,31 +591,96 @@ usercard.appendChild(p);
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
+  let selectedPaymentMethod = document.getElementById("paymentMethod").value;
+  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+  let chatId = tg.initDataUnsafe.user.id;
+  let totalAmount = document.getElementById("total-price").innerText;
+  let requestBody = {};
 
-var url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
-let chatId = tg.initDataUnsafe.user.id;
-  
-fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8'
-  },
-  body: JSON.stringify({ foods, chatId })
-})
-.then(response => {
-  if (response.ok) {
-    console.log('Data sent successfully.');
-    // Close the Telegram window or perform any other actions
-    tg.close();
+  if (selectedPaymentMethod === 'cash') {
+    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
+  } else if (selectedPaymentMethod === 'elDahabia') {
+    const postData = {
+      amount: totalAmount,
+      success_url: "https://chargily.com",
+      currency: "dzd"
+    };
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer test_pk_NOoH4P8lXmy7NJ5phSetNzZEVtzksJG4SLPpNKAK',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    };
+
+    fetch('https://pay.chargily.net/test/api/v2/checkouts', fetchOptions)
+      .then(response => response.json())
+      .then(data => {
+        const checkoutId = data.id;
+        const checkoutUrl = data.checkout_url;
+
+        requestBody = { foods, chatId, paymentMethod: 'elDahabia', paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
+
+        sendWebhookData(requestBody);
+      })
+      .catch(error => {
+        console.error('An error occurred:', error);
+      });
   } else {
-    console.log('Error sending data.');
+    console.log('Invalid payment method selected');
+    return;
   }
-})
-.catch(error => {
-  console.error('An error occurred:', error);
 
-  
+  sendWebhookData(requestBody);
 });
+
+function sendWebhookData(requestBody) {
+  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: JSON.stringify(requestBody)
+  })
+    .then(response => {
+      if (response.ok) {
+        console.log('Data sent successfully.');
+        // Close the Telegram window or perform any other actions
+        tg.close();
+      } else {
+        console.log('Error sending data.');
+      }
+    })
+    .catch(error => {
+      console.error('An error occurred:', error);
+    });
+// var url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+// let chatId = tg.initDataUnsafe.user.id;
+  
+// fetch(url, {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json;charset=UTF-8'
+//   },
+//   body: JSON.stringify({ foods, chatId })
+// })
+// .then(response => {
+//   if (response.ok) {
+//     console.log('Data sent successfully.');
+//     // Close the Telegram window or perform any other actions
+//     tg.close();
+//   } else {
+//     console.log('Error sending data.');
+//   }
+// })
+// .catch(error => {
+//   console.error('An error occurred:', error);
+
+// });
   });
 </script>
 
