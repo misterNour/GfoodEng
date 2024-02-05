@@ -603,7 +603,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     const postData = {
       amount: totalAmount,
       success_url: "https://chargily.com",
-      currency: "dzd"
+      currency: "dzd",
     };
 
     const fetchOptions = {
@@ -621,7 +621,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         const checkoutId = data.id;
         const checkoutUrl = data.checkout_url;
 
-        requestBody = { foods, chatId, paymentMethod: 'elDahabia', paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
+        requestBody = { foods, chatId, paymentMethod: 'edahabia', paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
 
         sendWebhookData(requestBody);
       })
