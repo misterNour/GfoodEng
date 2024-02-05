@@ -592,7 +592,7 @@ usercard.appendChild(p);
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
  let selectedPaymentMethod = document.getElementById("paymentMethod").value;
-  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+  let url = 'https://webhook.site/abb37629-9a1d-4f7b-a0d2-dff4af1a185f'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
   let totalAmount = document.getElementById("total-price").innerText;
   let requestBody = {};
@@ -637,7 +637,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 });
 
 function sendWebhookData(requestBody) {
-  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+  let url = 'https://webhook.site/abb37629-9a1d-4f7b-a0d2-dff4af1a185f'; // Replace with your server endpoint
 
   fetch(url, {
     method: 'POST',
