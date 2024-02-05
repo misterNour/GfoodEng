@@ -604,6 +604,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
       amount: totalAmount,
       success_url: "https://hookfastfood22.onrender.com/payments/success",
       currency: "dzd",
+      paymentMethod: 'edahabia'
     };
 
     const fetchOptions = {
@@ -621,7 +622,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         const checkoutId = data.id;
         const checkoutUrl = data.checkout_url;
 
-        requestBody = { foods, chatId, paymentMethod: 'edahabia', paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
+        requestBody = { foods, chatId, paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
 
         sendWebhookData(requestBody);
       })
@@ -642,7 +643,7 @@ function sendWebhookData(requestBody) {
   fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(requestBody)
   })
