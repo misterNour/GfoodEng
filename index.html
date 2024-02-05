@@ -126,6 +126,33 @@ body {
       .img {
         width: 100%; /* Make images responsive */
       }
+
+        .payment-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .payment-method {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .payment-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 8px;
+    background: white;
+  }
+
+  .payment-dropdown {
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+      
     }
 </style>
 <body>
@@ -181,6 +208,19 @@ body {
       </div>
     </div>
   </div>
+
+
+   <div class="payment-container">
+    <div class="payment-method">
+      <img src="https://images.vexels.com/media/users/3/263238/isolated/preview/f8aaf987130de3fbda6d73155febfeae-money-cash-wallet-icon.png" alt="Cash Icon" id="paymentIcon" class="payment-icon">
+      <select class="payment-dropdown" id="paymentMethod">
+        <option value="cash">Cash</option>
+        <option value="elDahabia">El Dahabia</option>
+      </select>
+    </div>
+  </div>
+
+  
   <div class="total-container">
   <p>Total Price: دج<span id="total-price">0</span></p>
 </div>
@@ -578,5 +618,22 @@ fetch(url, {
 });
   });
 </script>
+
+   <script>
+    // Add this JavaScript code
+    const paymentIcon = document.getElementById('paymentIcon');
+    const paymentDropdown = document.getElementById('paymentMethod');
+
+    paymentDropdown.addEventListener('change', function() {
+      const selectedPayment = paymentDropdown.value;
+      
+      // Change the icon based on the selected payment method
+      if (selectedPayment === 'cash') {
+        paymentIcon.src = 'https://images.vexels.com/media/users/3/263238/isolated/preview/f8aaf987130de3fbda6d73155febfeae-money-cash-wallet-icon.png';
+      } else if (selectedPayment === 'elDahabia') {
+        paymentIcon.src = 'https://cdn-icons-png.flaticon.com/512/4341/4341764.png';
+      }
+    });
+  </script>
 </body>
 </html> 
