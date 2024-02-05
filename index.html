@@ -589,8 +589,7 @@ p.innerText = `${tg.initDataUnsafe.user.first_name} ${tg.initDataUnsafe.user.las
 usercard.appendChild(p);
 
 
-Telegram.WebApp.onEvent("mainButtonClicked", function(){
-
+Telegram.WebApp.onEvent("mainButtonClicked", async function(){
  let selectedPaymentMethod = document.getElementById("paymentMethod").value;
   let url = 'https://webhook.site/24e8429f-f813-46cd-a197-d4d3153bbd86'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
@@ -616,19 +615,24 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
       body: JSON.stringify(postData)
     };
 
-    fetch('https://pay.chargily.net/test/api/v2/checkouts', fetchOptions)
-      .then(response => response.json())
-      .then(data => {
+    try {
+      const response = await fetch('https://pay.chargily.net/test/api/v2/checkouts', fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
         const checkoutId = data.id;
         const checkoutUrl = data.checkout_url;
 
         requestBody = { foods, chatId, paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
 
-        sendWebhookData(requestBody);
-      })
-      .catch(error => {
-        console.error('An error occurred:', error);
-      });
+        await sendWebhookData(requestBody);
+      } else {
+        console.log('Error sending data to payment endpoint.');
+        return;
+      }
+    } catch (error) {
+      console.error('An error occurred during payment processing:', error);
+      return;
+    }
   } else {
     console.log('Invalid payment method selected');
     return;
@@ -637,28 +641,29 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
   sendWebhookData(requestBody);
 });
 
-function sendWebhookData(requestBody) {
+async function sendWebhookData(requestBody) {
   let url = 'https://webhook.site/24e8429f-f813-46cd-a197-d4d3153bbd86'; // Replace with your server endpoint
 
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody)
-  })
-    .then(response => {
-      if (response.ok) {
-        console.log('Data sent successfully.');
-        // Close the Telegram window or perform any other actions
-        tg.close();
-      } else {
-        console.log('Error sending data.');
-      }
-    })
-    .catch(error => {
-      console.error('An error occurred:', error);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
     });
+
+    if (response.ok) {
+      console.log('Data sent successfully.');
+      // Close the Telegram window or perform any other actions
+      tg.close();
+    } else {
+      console.log('Error sending data to webhook endpoint.');
+    }
+  } catch (error) {
+    console.error('An error occurred during webhook data sending:', error);
+  }
+}
   
 // var url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
 // let chatId = tg.initDataUnsafe.user.id;
@@ -684,7 +689,7 @@ function sendWebhookData(requestBody) {
 
   
 // });
-  };
+  //};
 </script>
  <script>
     // Add this JavaScript code
