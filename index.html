@@ -613,7 +613,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", async function(){
         'Authorization': 'Bearer test_sk_nu2KF22Dc60fD6LdkIoAwlp3WgfCj5rqn15atqeB',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(postData)
+      body: JSON.stringify(postData),
+      redirect: 'follow'
     };
 
     // Show popup indicating loading
