@@ -600,20 +600,21 @@ Telegram.WebApp.onEvent("mainButtonClicked", async function(){
     requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
     sendWebhookData(requestBody);
   } else if (selectedPaymentMethod === 'elDahabia') {
-    const postData = {
-      amount: totalAmount,
-      success_url: "https://hookfastfood22.onrender.com/payments/success",
-      currency: "dzd",
-      paymentMethod: 'edahabia'
-    };
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer test_sk_nu2KF22Dc60fD6LdkIoAwlp3WgfCj5rqn15atqeB");
 
-    const fetchOptions = {
+    const raw = JSON.stringify({
+      "amount": totalAmount,
+      "payment_method": "edahabia",
+      "currency": "dzd",
+      "success_url": "https://hookfastfood22.onrender.com/payments/success"
+    });
+
+    const requestOptions = {
       method: 'POST',
-      headers: {
-        'Authorization': 'Bearer test_sk_nu2KF22Dc60fD6LdkIoAwlp3WgfCj5rqn15atqeB',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postData),
+      headers: myHeaders,
+      body: raw,
       redirect: 'follow'
     };
 
@@ -621,12 +622,13 @@ Telegram.WebApp.onEvent("mainButtonClicked", async function(){
     showLoadingPopup();
 
     try {
-      const response = await fetch('https://pay.chargily.net/test/api/v2/checkouts', fetchOptions);
+      const response = await fetch("https://pay.chargily.net/test/api/v2/checkouts", requestOptions);
       const data = await response.json();
+      
       const checkoutId = data.id;
       const checkoutUrl = data.checkout_url;
 
-      requestBody = { foods, chatId, paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
+      requestBody = { foods, chatId, paymentMethod: 'edahabia', paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
       await sendWebhookData(requestBody);
 
       // Close the loading popup
@@ -703,6 +705,7 @@ async function sendWebhookData(requestBody) {
     console.error('An error occurred:', error);
   }
 };
+
 
 </script>
  <script>
