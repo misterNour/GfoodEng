@@ -590,7 +590,7 @@ usercard.appendChild(p);
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
- let selectedPaymentMethod = document.getElementById("paymentMethod").value;
+  let selectedPaymentMethod = document.getElementById("paymentMethod").value;
   let url = 'https://webhook.site/ccfa3f6a-e863-400b-9519-acff87b3b243'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
   let totalAmount = document.getElementById("total-price").innerText;
@@ -599,17 +599,14 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
   if (selectedPaymentMethod === 'cash') {
     requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
   } else if (selectedPaymentMethod === 'elDahabia') {
-  
-          
-        requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
-
-        sendWebhookData(requestBody);
-     
+    requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
   } else {
     console.log('Invalid payment method selected');
     return;
-   }
-  };
+  }
+
+  sendWebhookData(requestBody);
+});
 
 function sendWebhookData(requestBody) {
   let url = 'https://webhook.site/ccfa3f6a-e863-400b-9519-acff87b3b243'; // Replace with your server endpoint
@@ -632,8 +629,8 @@ function sendWebhookData(requestBody) {
     })
     .catch(error => {
       console.error('An error occurred:', error);
-    }); 
-  };
+    });  
+};
 </script>
  <script>
     // Add this JavaScript code
