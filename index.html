@@ -626,7 +626,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", async function(){
       const checkoutUrl = data.checkout_url;
 
       requestBody = { foods, chatId, paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
-      sendWebhookData(requestBody);
+      await sendWebhookData(requestBody);
 
       // Close the loading popup
       closeLoadingPopup();
@@ -679,29 +679,30 @@ function closeLoadingPopup() {
   }
 }
 
-function sendWebhookData(requestBody) {
+async function sendWebhookData(requestBody) {
   let url = 'https://webhook.site/ccfa3f6a-e863-400b-9519-acff87b3b243'; // Replace with your server endpoint
 
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody)
-  })
-    .then(response => {
-      if (response.ok) {
-        console.log('Data sent successfully.');
-        // Close the Telegram window or perform any other actions
-        tg.close();
-      } else {
-        console.log('Error sending data.');
-      }
-    })
-    .catch(error => {
-      console.error('An error occurred:', error);
-    }); 
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (response.ok) {
+      console.log('Data sent successfully.');
+      // Close the Telegram window or perform any other actions
+      tg.close();
+    } else {
+      console.log('Error sending data.');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 };
+
 </script>
  <script>
     // Add this JavaScript code
