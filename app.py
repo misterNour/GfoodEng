@@ -21,7 +21,7 @@ def webhook():
     # Fetching data from chargily API
     myHeaders = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer url_key_token"
+        "Authorization": "Bearer test_sk_nu2KF22Dc60fD6LdkIoAwlp3WgfCj5rqn15atqeB"
     }
     raw = json.dumps({
         "amount": totalAmount,
