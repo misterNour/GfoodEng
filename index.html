@@ -590,7 +590,7 @@ usercard.appendChild(p);
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
- let selectedPaymentMethod = document.getElementById("paymentMethod").value;
+  let selectedPaymentMethod = document.getElementById("paymentMethod").value;
   let url = 'https://webhook.site/ccfa3f6a-e863-400b-9519-acff87b3b243'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
   let totalAmount = document.getElementById("total-price").innerText;
@@ -598,6 +598,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 
   if (selectedPaymentMethod === 'cash') {
     requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
+    sendWebhookData(requestBody);
   } else if (selectedPaymentMethod === 'elDahabia') {
     const postData = {
       amount: totalAmount,
@@ -615,6 +616,9 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
       body: JSON.stringify(postData)
     };
 
+    // Show popup indicating loading
+    showLoadingPopup();
+
     fetch('https://pay.chargily.net/test/api/v2/checkouts', fetchOptions)
       .then(response => response.json())
       .then(data => {
@@ -624,17 +628,58 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
         requestBody = { foods, chatId, paymentData: { id: checkoutId, checkout_url: checkoutUrl, totalAmount } };
 
         sendWebhookData(requestBody);
+
+        // Close the loading popup
+        closeLoadingPopup();
       })
       .catch(error => {
         console.error('An error occurred:', error);
+        // Close the loading popup in case of error
+        closeLoadingPopup();
       });
   } else {
     console.log('Invalid payment method selected');
     return;
   }
-
-  sendWebhookData(requestBody);
 });
+
+function showLoadingPopup() {
+  // Create a loading overlay
+  let loadingOverlay = document.createElement('div');
+  loadingOverlay.id = 'loading-overlay';
+  loadingOverlay.style.position = 'fixed';
+  loadingOverlay.style.top = '0';
+  loadingOverlay.style.left = '0';
+  loadingOverlay.style.width = '100%';
+  loadingOverlay.style.height = '100%';
+  loadingOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  loadingOverlay.style.display = 'flex';
+  loadingOverlay.style.justifyContent = 'center';
+  loadingOverlay.style.alignItems = 'center';
+  
+  // Add a loading spinner
+  let spinner = document.createElement('div');
+  spinner.className = 'spinner-border text-primary';
+  spinner.setAttribute('role', 'status');
+  let span = document.createElement('span');
+  span.className = 'sr-only';
+  span.textContent = 'Loading...';
+  spinner.appendChild(span);
+  
+  // Append spinner to overlay
+  loadingOverlay.appendChild(spinner);
+  
+  // Append overlay to body
+  document.body.appendChild(loadingOverlay);
+}
+
+function closeLoadingPopup() {
+  // Remove loading overlay from DOM
+  let loadingOverlay = document.getElementById('loading-overlay');
+  if (loadingOverlay) {
+    loadingOverlay.parentNode.removeChild(loadingOverlay);
+  }
+}
 
 function sendWebhookData(requestBody) {
   let url = 'https://webhook.site/ccfa3f6a-e863-400b-9519-acff87b3b243'; // Replace with your server endpoint
@@ -658,32 +703,8 @@ function sendWebhookData(requestBody) {
     .catch(error => {
       console.error('An error occurred:', error);
     }); 
-  
-// var url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
-// let chatId = tg.initDataUnsafe.user.id;
-  
-// fetch(url, {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json;charset=UTF-8'
-//   },
-//   body: JSON.stringify({ foods, chatId })
-// })
-// .then(response => {
-//   if (response.ok) {
-//     console.log('Data sent successfully.');
-//     // Close the Telegram window or perform any other actions
-//     tg.close();
-//   } else {
-//     console.log('Error sending data.');
-//   }
-// })
-// .catch(error => {
-//   console.error('An error occurred:', error);
+};
 
-  
-// });
-  };
 </script>
  <script>
     // Add this JavaScript code
