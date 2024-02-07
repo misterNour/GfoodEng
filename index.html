@@ -160,7 +160,7 @@ body {
     <div class="inner">
       <div class="item">
         <div class="item-title">Tako</div>
-        <span class="item-price" id="item-price1">Price: $15</span> <!-- Updated price -->
+        <span class="item-price" id="item-price1">Price: 150دج</span> <!-- Updated price -->
         <img src="https://res.cloudinary.com/dsjjtnudl/image/upload/v1692470283/TG-Foods/Tako_148_qb6ayw.png" alt="" class="img">
         <button class="btn" id="btn1">Add</button>
                 <button class="btn remove-btn" id="removeBtn1" >-</button>
@@ -303,9 +303,9 @@ function calculateTotalPrices() {
 
     if (quantities[itemId] === 0) {
       // Revert to the original price when quantity is zero
-      itemPriceElement.innerText = `Price: $${itemPrices[itemId]}`;
+      itemPriceElement.innerText = `Price: دج${itemPrices[itemId]}`;
     } else {
-      itemPriceElement.innerText = `Price: $${totalItemPrice}`; // Update the displayed price
+      itemPriceElement.innerText = `Price: دج${totalItemPrice}`; // Update the displayed price
     }
   }
 
