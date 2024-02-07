@@ -591,18 +591,17 @@ usercard.appendChild(p);
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
   let selectedPaymentMethod = document.getElementById("paymentMethod").value;
-  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+  //let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+  let url = 'https://webhook.site/3587b05d-04f6-42df-b855-c094c4012eaf';
   let chatId = tg.initDataUnsafe.user.id;
-  // let totalAmount = document.getElementById("total-price").innerText;
-  let totalAmountIn = document.getElementById("total-price").innerText;
-  // Convert totalPrice to an integer using parseInt()
-  let totalAmountInteger = parseInt(totalAmountIn, 10);
+  let totalAmount = document.getElementById("total-price").innerText;
+  
   let requestBody = {};
 
   if (selectedPaymentMethod === 'cash') {
-    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount: totalAmountInteger};
+    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
   } else if (selectedPaymentMethod === 'elDahabia') {
-    requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount: totalAmountInteger};
+    requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
   } else {
     console.log('Invalid payment method selected');
     return;
@@ -612,8 +611,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
 });
 
 function sendWebhookData(requestBody) {
-  let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
-
+  //let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
+   let url = 'https://webhook.site/3587b05d-04f6-42df-b855-c094c4012eaf';
   fetch(url, {
     method: 'POST',
     headers: {
