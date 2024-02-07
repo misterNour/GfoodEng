@@ -593,9 +593,7 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
   let selectedPaymentMethod = document.getElementById("paymentMethod").value;
   let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
-  // let totalAmount = document.getElementById("total-price").innerText;
-  let totalAmountString = document.getElementById("total-price").innerText;
-  let totalAmount = parseInt(totalAmountString);
+  let totalAmount = document.getElementById("total-price").innerText;
   let requestBody = {};
 
   if (selectedPaymentMethod === 'cash') {
