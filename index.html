@@ -593,13 +593,16 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
   let selectedPaymentMethod = document.getElementById("paymentMethod").value;
   let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
-  let totalAmount = document.getElementById("total-price").innerText;
+  // let totalAmount = document.getElementById("total-price").innerText;
+  let totalAmountIn = document.getElementById("total-price").innerText;
+  // Convert totalPrice to an integer using parseInt()
+  let totalAmountInteger = parseInt(totalAmountIn, 10);
   let requestBody = {};
 
   if (selectedPaymentMethod === 'cash') {
-    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
+    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount: totalAmountInteger};
   } else if (selectedPaymentMethod === 'elDahabia') {
-    requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
+    requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount: totalAmountInteger};
   } else {
     console.log('Invalid payment method selected');
     return;
