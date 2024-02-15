@@ -218,6 +218,9 @@ body {
         <option value="elDahabia">El Dahabia</option>
       </select>
     </div>
+     <div id="addressField" style="display: none;">
+    <input type="text" id="address" placeholder="Enter your address">
+     </div>
   </div>
 
   
@@ -591,14 +594,17 @@ usercard.appendChild(p);
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
   let selectedPaymentMethod = document.getElementById("paymentMethod").value;
+  let addressField = document.getElementById('addressField').value;
+  
   let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
   let totalAmount = document.getElementById("total-price").innerText;
   
+  
   let requestBody = {};
 
   if (selectedPaymentMethod === 'cash') {
-    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount };
+    requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount , addressField };
   } else if (selectedPaymentMethod === 'elDahabia') {
     requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
   } else {
@@ -637,6 +643,7 @@ function sendWebhookData(requestBody) {
     // Add this JavaScript code
     const paymentIcon = document.getElementById('paymentIcon');
     const paymentDropdown = document.getElementById('paymentMethod');
+    const addressField = document.getElementById('addressField');
 
     paymentDropdown.addEventListener('change', function() {
       const selectedPayment = paymentDropdown.value;
@@ -644,8 +651,10 @@ function sendWebhookData(requestBody) {
       // Change the icon based on the selected payment method
       if (selectedPayment === 'cash') {
         paymentIcon.src = 'https://images.vexels.com/media/users/3/263238/isolated/preview/f8aaf987130de3fbda6d73155febfeae-money-cash-wallet-icon.png';
+        addressField.style.display = 'block'; // Show address field for cash payment
       } else if (selectedPayment === 'elDahabia') {
         paymentIcon.src = 'https://cdn-icons-png.flaticon.com/512/4341/4341764.png';
+        addressField.style.display = 'none'; // Hide address field for El Dahabia payment
       }
     });
   </script>
