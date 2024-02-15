@@ -152,25 +152,19 @@ body {
     border-radius: 5px;
   }
     }
- form {
-      width: 75vmin;
-      height: 80px;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      top: 50%;
-      left: 50%;
-      padding: 40px 0;
-    }
-    addressField[type="text"] {
-      width: 100%;
-      padding: 15px 10px;
-      border: none;
-      border-bottom: 1px solid #645979;
-      outline: none;
-      border-radius: 5px 5px 0 0;
-      background-color: #ffffff;
-      font-size: 16px;
-    }
+#addressField {
+  margin-top: 10px;
+}
+
+#addressField .address-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 40px;
+}
 </style>
 <body>
   <div class="container">
@@ -236,13 +230,9 @@ body {
       </select>
     </div>
   
-<!--      <div id="addressField" class="address-field" style="display: block;">
-    <input type="text" id="address" placeholder="Enter your address"> -->
-       <form>
-    <div>
-      <input type="text" id="addressField" class="address-field" style="display: block;" placeholder="Type a name here..." />
-    </div>
-      </form>
+     <div id="addressField" class="address-field" style="display: block;">
+    <input type="text" id="address" placeholder="Enter your address">
+      
      </div>
 
   </div>
