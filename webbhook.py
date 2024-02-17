@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Replace with your Google Apps Script web app URL
-GOOGLE_SCRIPT_URL = "g_url"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoYZcnqtdZJieetVoHXVra4U27cCd3kfPr8kOMmnoWdzCqCN9GFHSNX0x8Bm9fTqol/exec"
 
 @app.route('/chargilywebhook', methods=['POST'])
 def webhook():
