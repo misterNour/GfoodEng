@@ -94,6 +94,18 @@ def webhook():
 def payment_success():
     # Add your logic for handling successful payments here
     return jsonify({"message": "Payment Successful!"})
+
+# Route for serving index.html
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Route for serving inscription.html
+@app.route('/inscription')
+def inscription():
+    return render_template('inscription.html')
+
+
     
 if __name__ == '__main__':
     app.run(debug=True)
