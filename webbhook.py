@@ -11,7 +11,7 @@ CORS(app)
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS6aAizNGfyb2Qgy4SDsBI2-biRTMJxSQxFY_7H27ZFbwvgXgH87cf5YPRnq_DAzNw_w/exec"
 
 @app.route('/chargilywebhook', methods=['POST'])
-def webhook():
+def webbhook():
     data = request.json  # Assuming the incoming data is in JSON format
     
     # Send the data to Google Apps Script
