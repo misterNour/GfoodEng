@@ -229,6 +229,7 @@ body {
       <select class="payment-dropdown" id="paymentMethod">
         <option value="cash">Cash</option>
         <option value="elDahabia">El Dahabia</option>
+        <option value="cib">CIB</option>
       </select>
     </div>
   
@@ -689,7 +690,11 @@ function sendWebhookData(requestBody) {
       } else if (selectedPayment === 'elDahabia') {
         paymentIcon.src = 'https://cdn-icons-png.flaticon.com/512/4341/4341764.png';
         addressField.style.display = 'none'; // Hide address field for El Dahabia payment
+      } else if (selectedPayment === 'cib') {
+        paymentIcon.src = 'https://res.cloudinary.com/dsjjtnudl/image/upload/v1709315069/t%C3%A9l%C3%A9chargement__1_-removebg-preview_puqnr4.png';
+        addressField.style.display = 'none'; // Hide address field for cib payment
       }
+      
     });
   </script>
   <script>
