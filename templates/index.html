@@ -642,6 +642,8 @@ Telegram.WebApp.onEvent("mainButtonClicked", function(){
     requestBody = { foods, chatId, paymentMethod: 'cash', totalAmount , addressinField };
   } else if (selectedPaymentMethod === 'elDahabia') {
     requestBody = { foods, chatId, paymentMethod: 'edahabia', totalAmount };
+  } else if (selectedPaymentMethod === 'CIB') {
+    requestBody = { foods, chatId, paymentMethod: 'cib', totalAmount };
   } else {
     console.log('Invalid payment method selected');
     return;
