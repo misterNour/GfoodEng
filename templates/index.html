@@ -4,6 +4,9 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>GfoodTemp</title>
 </head>
 <style>
@@ -229,8 +232,15 @@ body {
       </select>
     </div>
   
-     <div id="addressField" class="address-field" style="display: block;">
-    <input type="text" id="address" placeholder="Enter your address">
+<!--       <div id="addressField" class="address-field" style="display: block;">
+      <input type="text" id="address" placeholder="Enter your address"> -->
+
+        <form>
+          <div class="form-group" id="addressField" style="display: block;">
+          <label for="usr">Adress:</label>
+          <input type="text" class="form-control" id="usr">
+         </div>
+        </form>
       
      </div>
 
@@ -622,7 +632,7 @@ usercard.appendChild(p);
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
   let selectedPaymentMethod = document.getElementById("paymentMethod").value;
-  let addressinField = document.getElementById("address").value;
+  let addressinField = document.getElementById("usr").value;
   
   let url = 'https://hookfastfood22.onrender.com/webhook'; // Replace with your server endpoint
   let chatId = tg.initDataUnsafe.user.id;
