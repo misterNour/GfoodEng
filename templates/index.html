@@ -4,7 +4,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>fastFood22</title>
+  <title>GfoodTemp</title>
 </head>
 <style>
 body {
@@ -244,7 +244,10 @@ body {
   <div class="usercard" id="usercard">
     
   </div>
-
+  
+  <audio id="addSound" src="https://res.cloudinary.com/dsjjtnudl/video/upload/v1709286891/SoundEffect/mixkit-dry-pop-up-notification-alert-2356_gymkbw.wav"></audio>
+<audio id="removeSound" src="https://res.cloudinary.com/dsjjtnudl/video/upload/v1709286890/SoundEffect/mag-remove-92075_i3z6o3.mp3"></audio>
+  
 <script>
     let tg = window.Telegram.WebApp;
 
@@ -356,6 +359,7 @@ btn1.addEventListener("click", function(){
     removeBtn1.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
      notification1.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 
@@ -383,6 +387,7 @@ btn2.addEventListener("click", function(){
     removeBtn2.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
     notification2.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 
@@ -410,6 +415,7 @@ btn3.addEventListener("click", function(){
     removeBtn3.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
     notification3.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 
@@ -436,6 +442,7 @@ btn4.addEventListener("click", function(){
     removeBtn4.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
     notification4.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 
@@ -462,6 +469,7 @@ btn5.addEventListener("click", function(){
     removeBtn5.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
     notification5.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 
@@ -488,6 +496,7 @@ foods[6] = {
     removeBtn6.style.display = "inline-block"; // Show the "Remove" button when the quantity is greater than 0
     notification6.style.display = "inline"; // Show the notification when the quantity is greater than 0
   }
+  playAddSound();
   calculateTotalPrices();
 });
 // Repeat the same for other items
@@ -503,6 +512,7 @@ removeBtn1.addEventListener("click", function(){
     removeBtn1.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
     notification1.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 
@@ -517,6 +527,7 @@ removeBtn2.addEventListener("click", function(){
     removeBtn2.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
      notification2.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 removeBtn3.addEventListener("click", function(){
@@ -530,6 +541,7 @@ removeBtn3.addEventListener("click", function(){
     removeBtn3.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
      notification3.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 
@@ -544,6 +556,7 @@ removeBtn4.addEventListener("click", function(){
     removeBtn4.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
      notification4.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 
@@ -558,6 +571,7 @@ removeBtn5.addEventListener("click", function(){
     removeBtn5.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
      notification5.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 
@@ -572,6 +586,7 @@ removeBtn6.addEventListener("click", function(){
     removeBtn6.style.display = "none"; // Hide the "Remove" button when the quantity is equal to 0
      notification6.style.display = "none"; // Hide the notification when the quantity is equal to 0
   }
+  playRemoveSound();
   calculateTotalPrices();
 });
 
@@ -671,5 +686,18 @@ function sendWebhookData(requestBody) {
       }
     });
   </script>
+  <script>
+function playAddSound() {
+    document.getElementById("addSound").play();
+}
+
+function playRemoveSound() {
+    document.getElementById("removeSound").play();
+}
+
+function playSuccessSound() {
+    document.getElementById("successSound").play();
+}
+</script>
 </body>
 </html> 
